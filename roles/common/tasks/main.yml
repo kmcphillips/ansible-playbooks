@@ -1,5 +1,5 @@
 ---
-- name: Install packages with apt
+- name: install packages with apt
   apt:
     name: "{{ item }}"
     state: present
@@ -13,7 +13,7 @@
     - libreadline-dev
     - libffi-dev
 
-- name: Create 'deploy' user
+- name: create deploy user
   user:
     name: deploy
     createhome: yes
@@ -21,7 +21,7 @@
     group: root
     generate_ssh_key: yes
 
-- name: Copy ssh public key to 'deploy' user
+- name: copy ssh public key to deploy user
   authorized_key:
     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
     user: deploy
