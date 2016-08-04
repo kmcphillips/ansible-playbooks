@@ -1,0 +1,4 @@
+---
+- hosts: rails-app1
+  gather_facts: no
+
