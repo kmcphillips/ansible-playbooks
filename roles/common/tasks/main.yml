@@ -1,0 +1,28 @@
+---
+- name: Install packages with apt
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - build-essential
+    - git-core
+    - curl
+    - libxml2-dev
+    - libxslt1-dev
+    - libreadline-dev
+    - libffi-dev
+
+- name: Create 'deploy' user
+  user:
+    name: deploy
+    createhome: yes
+    shell: /bin/bash
+    group: root
+    generate_ssh_key: yes
+
+- name: Copy ssh public key to 'deploy' user
+  authorized_key:
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    user: deploy
+    state: present
