@@ -15,3 +15,5 @@ mysql_users:
     password: deploy
     priv: "*.*:ALL"
 # skip-networking
+
+nginx_user: "nginx"
