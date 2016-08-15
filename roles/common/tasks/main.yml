@@ -12,6 +12,8 @@
     - libxslt1-dev
     - libreadline-dev
     - libffi-dev
+    - libssl-dev
+    - libyaml-dev
 
 - name: create deploy user
   user:
