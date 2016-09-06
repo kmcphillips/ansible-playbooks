@@ -10,7 +10,11 @@
     - libmysqlclient-dev
 
 - name: create root {{ rails_app_root }} directory
-  file: path={{ rails_app_root }} state=directory mode=0755 owner={{ rails_app_user }}
+  file:
+    path: "{{ rails_app_root }}"
+    state: directory
+    mode: 0755
+    owner: "{{ rails_app_user }}"
 
 - name: create app root directory
   with_items: "{{ rails_apps }}"
