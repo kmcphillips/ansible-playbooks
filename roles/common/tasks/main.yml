@@ -14,8 +14,6 @@
     - libffi-dev
     - libssl-dev
     - libyaml-dev
-    - imagemagick
-    - libmagickwand-dev
 
 - name: create deploy user
   user:

@@ -1,5 +1,5 @@
 ---
-- name: configure server to run rack apps
+- name: configure server to run rails/rack apps
   hosts: rails-app1
   remote_user: root
   gather_facts: true
@@ -16,3 +16,4 @@
     - zzet.rbenv
     - geerlingguy.mysql
     - geerlingguy.nginx
+    - rails

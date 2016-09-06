@@ -1,0 +1,12 @@
+---
+- name: install gem dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - imagemagick
+    - libmagickwand-dev
+
+- name: create /var/apps directory
+  file: path=/var/apps state=directory mode=0755 owner=deploy
