@@ -7,6 +7,24 @@
   with_items:
     - imagemagick
     - libmagickwand-dev
+    - libmysqlclient-dev
 
-- name: create /var/apps directory
-  file: path=/var/apps state=directory mode=0755 owner=deploy
+- name: create root {{ rails_app_root }} directory
+  file: path={{ rails_app_root }} state=directory mode=0755 owner={{ rails_app_user }}
+
+- name: create app root directory
+  with_items: "{{ rails_apps }}"
+  file:
+    path: "{{ rails_app_root }}/{{ item.name }}"
+    state: directory
+    mode: 0755
+    owner: "{{ rails_app_user }}"
+
+- name: create app config directory
+  with_items: "{{ rails_apps }}"
+  file:
+    path: "{{ rails_app_root }}/{{ item.name }}/shared/config"
+    state: directory
+    recurse: true
+    mode: 0755
+    owner: "{{ rails_app_user }}"

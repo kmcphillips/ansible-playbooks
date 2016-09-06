@@ -17,3 +17,11 @@ mysql_users:
 # skip-networking
 
 nginx_user: "nginx"
+
+rails_app_root: /var/apps
+rails_app_user: deploy
+rails_apps:
+  - name: example1.app
+    key: value
+  - name: example2.app
+    key: value2
