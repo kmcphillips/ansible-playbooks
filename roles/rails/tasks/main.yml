@@ -42,3 +42,13 @@
     dest: "{{ rails_app_root }}/{{ item.name }}/shared/config/database.yml"
     mode: 0755
     owner: "{{ rails_app_user }}"
+
+- name: create secrets.yml files
+  with_items: "{{ rails_apps }}"
+  when: item.secrets is defined
+  no_log: true
+  template:
+    src: secrets.yml.j2
+    dest: "{{ rails_app_root }}/{{ item.name }}/shared/config/secrets.yml"
+    mode: 0755
+    owner: "{{ rails_app_user }}"
