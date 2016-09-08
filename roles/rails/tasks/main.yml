@@ -32,3 +32,13 @@
     recurse: true
     mode: 0755
     owner: "{{ rails_app_user }}"
+
+- name: create database.yml files
+  with_items: "{{ rails_apps }}"
+  when: item.database is defined
+  no_log: true
+  template:
+    src: database_mysql.yml.j2
+    dest: "{{ rails_app_root }}/{{ item.name }}/shared/config/database.yml"
+    mode: 0755
+    owner: "{{ rails_app_user }}"

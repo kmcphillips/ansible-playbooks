@@ -24,4 +24,7 @@ rails_apps:
   - name: example1.app
     key: value
   - name: example2.app
-    key: value2
+    database:
+      database: db_name
+      username: db_user
+      password: db_pass
