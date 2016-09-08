@@ -25,6 +25,6 @@ rails_apps:
     key: value
   - name: example2.app
     database:
-      database: db_name
-      username: db_user
-      password: db_pass
+      database: "{{ vault.example2app.database }}"
+      username: "{{ vault.example2app.username }}"
+      password: "{{ vault.example2app.password }}"
