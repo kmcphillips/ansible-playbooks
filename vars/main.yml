@@ -28,3 +28,9 @@ rails_apps:
       database: "{{ vault.example2app.database }}"
       username: "{{ vault.example2app.username }}"
       password: "{{ vault.example2app.password }}"
+  - name: kev.cool
+    secrets: "{{ vault.kevcool.secrets }}"
+    database:
+      database: "{{ vault.kevcool.database }}"
+      username: "{{ vault.kevcool.username }}"
+      password: "{{ vault.kevcool.password }}"
