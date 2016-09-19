@@ -9,11 +9,7 @@ rbenv_users:
 mysql_root_password: root
 mysql_root_password_update: yes
 mysql_bind_address: 127.0.0.1
-mysql_users:
-  - name: deploy
-    host: "localhost"
-    password: deploy
-    priv: "*.*:ALL"
+mysql_users: "{{ vault_mysql_users }}"
 # skip-networking
 
 nginx_user: "nginx"
