@@ -10,6 +10,7 @@ mysql_root_password: root
 mysql_root_password_update: yes
 mysql_bind_address: 127.0.0.1
 mysql_users: "{{ vault_mysql_users }}"
+mysql_databases: "{{ vault_mysql_databases }}"
 # skip-networking
 
 nginx_user: "nginx"
@@ -17,7 +18,4 @@ nginx_user: "nginx"
 rails_app_root: /var/apps
 rails_app_user: deploy
 rails_apps:
-  - example1.app
-  - example2.app
-  - example3.app
   - kev.cool
