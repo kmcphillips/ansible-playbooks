@@ -35,7 +35,7 @@
 
 - name: create files from vault
   with_subelements:
-    - "{{ decrypted_vault }}"
+    - "{{ vault_rails }}"
     - "yaml_files"
   no_log: true
   copy:
