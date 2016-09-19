@@ -18,39 +18,28 @@
 
 - name: create app root directory
   with_items: "{{ rails_apps }}"
-  no_log: true
   file:
-    path: "{{ rails_app_root }}/{{ item.name }}"
+    path: "{{ rails_app_root }}/{{ item }}"
     state: directory
     mode: 0755
     owner: "{{ rails_app_user }}"
 
 - name: create app config directory
   with_items: "{{ rails_apps }}"
-  no_log: true
   file:
-    path: "{{ rails_app_root }}/{{ item.name }}/shared/config"
+    path: "{{ rails_app_root }}/{{ item }}/shared/config"
     state: directory
     recurse: true
     mode: 0755
     owner: "{{ rails_app_user }}"
 
-- name: create database.yml files
-  with_items: "{{ rails_apps }}"
-  when: item.database is defined
+- name: create files from vault
+  with_subelements:
+    - "{{ decrypted_vault }}"
+    - "yaml_files"
   no_log: true
-  template:
-    src: database_mysql.yml.j2
-    dest: "{{ rails_app_root }}/{{ item.name }}/shared/config/database.yml"
-    mode: 0755
-    owner: "{{ rails_app_user }}"
-
-- name: create secrets.yml files
-  with_items: "{{ rails_apps }}"
-  when: item.secrets is defined
-  no_log: true
-  template:
-    src: secrets.yml.j2
-    dest: "{{ rails_app_root }}/{{ item.name }}/shared/config/secrets.yml"
+  copy:
+    dest: "{{ rails_app_root }}/{{ item.0.name }}/shared/config/{{ item.1.filename }}"
+    content: "{{ item.1.content | to_nice_yaml }}"
     mode: 0755
     owner: "{{ rails_app_user }}"

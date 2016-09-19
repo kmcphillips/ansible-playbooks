@@ -21,16 +21,26 @@ nginx_user: "nginx"
 rails_app_root: /var/apps
 rails_app_user: deploy
 rails_apps:
-  - name: example1.app
-    secrets: "{{ vault.example1app.secrets }}"
-  - name: example2.app
-    database:
-      database: "{{ vault.example2app.database }}"
-      username: "{{ vault.example2app.username }}"
-      password: "{{ vault.example2app.password }}"
-  - name: kev.cool
-    secrets: "{{ vault.kevcool.secrets }}"
-    database:
-      database: "{{ vault.kevcool.database }}"
-      username: "{{ vault.kevcool.username }}"
-      password: "{{ vault.kevcool.password }}"
+  - example1.app
+  - example2.app
+  - example3.app
+  - kev.cool
+
+decrypted_vault:
+  - name: "kev.cool"
+    yaml_files:
+      - filename: "database.yml"
+        content:
+          production:
+            adapter: mysql2
+            encoding: utf8
+            pool: 5
+            reconnect: false
+            host: localhost
+            database: aaaa
+            username: bbbb
+            password: 1111111
+      - filename: "secrets.yml"
+        content:
+          production:
+            secret_key_base: 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
