@@ -24,6 +24,13 @@
     mode: 0755
     owner: "{{ rails_app_user }}"
 
+- name: create convenience symlink in home to {{ rails_app_root }} directory
+  file:
+    src: "{{ rails_app_root }}"
+    dest: "/home/{{ rails_app_user }}/apps"
+    owner: "{{ rails_app_user }}"
+    state: link
+
 - name: create app config directory
   with_items: "{{ rails_apps }}"
   file:
