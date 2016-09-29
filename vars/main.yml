@@ -13,7 +13,8 @@ mysql_users: "{{ vault_mysql_users }}"
 mysql_databases: "{{ vault_mysql_databases }}"
 # skip-networking
 
-nginx_user: "nginx"
+nginx_user: deploy
+nginx_remove_default_vhost: true
 
 rails_app_root: /var/apps
 rails_app_user: deploy
