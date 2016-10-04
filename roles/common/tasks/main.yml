@@ -21,7 +21,20 @@
     createhome: yes
     shell: /bin/bash
     group: root
+    groups: admin
     generate_ssh_key: yes
+
+- name: no password for admin in sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%admin'
+    line: '%admin ALL=(ALL) NOPASSWD: ALL'
+
+- name: prevent the sudo warning
+  file:
+    path: /home/deploy/.sudo_as_admin_successful
+    state: touch
 
 - name: copy ssh public key to deploy user
   authorized_key:
