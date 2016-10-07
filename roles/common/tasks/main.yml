@@ -21,7 +21,7 @@
     createhome: yes
     shell: /bin/bash
     group: root
-    groups: admin
+    groups: admin,adm
     generate_ssh_key: yes
 
 - name: no password for admin in sudoers
