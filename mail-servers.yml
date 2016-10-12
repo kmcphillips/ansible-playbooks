@@ -1,18 +1,14 @@
 ---
-- name: configure a server for mail with Postfix
+- name: configure server for mail with Postfix
   hosts:
   remote_user: root
-  gather_facts: no
+  gather_facts: true
 
   vars_files:
+    - vars/vault.yml
     - vars/main.yml
-
-  pre_tasks:
-    - name: Force install python2
-      raw: sudo apt-get -y install python-simplejson
 
   roles:
     - common
     - zzet.rbenv
-
     # TODO

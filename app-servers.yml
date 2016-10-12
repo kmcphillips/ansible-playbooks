@@ -1,5 +1,5 @@
 ---
-- name: configure server to run rails/rack apps
+- name: configure server to run rails/rack apps with Nginx and Unicorn
   hosts: rails-app1
   remote_user: root
   gather_facts: true
@@ -7,10 +7,6 @@
   vars_files:
     - vars/vault.yml
     - vars/main.yml
-
-  pre_tasks:
-    - name: install python2
-      raw: sudo apt-get -y install python-simplejson
 
   roles:
     - common
