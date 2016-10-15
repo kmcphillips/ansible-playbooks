@@ -51,6 +51,20 @@
     mode: 0755
     owner: "{{ rails_app_user }}"
 
+- name: create unicorn upstart file
+  with_items: "{{ rails_apps }}"
+  template:
+    src: unicorn.j2
+    dest: "/etc/init.d/unicorn_{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: update upstart to detect new unicorn config
+  with_items: "{{ rails_apps }}"
+  shell: "update-rc.d unicorn_{{ item }} defaults"
+  become: true
+
 - name: create nginx vhost files for rails apps
   with_items: "{{ rails_apps }}"
   copy:
@@ -61,7 +75,7 @@
   notify:
     - reload nginx
 
-- name: simlink enabled vhosts for nginx rails apps
+- name: symlink enabled vhosts for nginx rails apps
   with_items: "{{ rails_apps }}"
   file:
     src: "/etc/nginx/sites-available/{{ item }}.conf"
