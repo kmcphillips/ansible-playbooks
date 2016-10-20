@@ -1,0 +1,20 @@
+[Unit]
+Description=Unicorn for {{ item }}
+
+[Service]
+Type=forking
+SyslogIdentifier=unicorn-{{ item }}
+User=deploy
+PIDFile=/var/apps/{{ item }}/shared/tmp/pids/unicorn.pid
+WorkingDirectory=/var/apps/{{ item }}/current
+# MemoryAccounting=true
+# MemoryLimit=512M
+# Restart=on-failure
+# RestartSec=10s
+
+ExecStart=/home/deploy/.rbenv/shims/bundle exec "unicorn -D -c config/unicorn.rb -E production"
+ExecReload=/bin/kill -s USR2 $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target

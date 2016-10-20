@@ -51,18 +51,22 @@
     mode: 0755
     owner: "{{ rails_app_user }}"
 
-- name: create unicorn upstart file
+- name: create unicorn systemd file
   with_items: "{{ rails_apps }}"
   template:
-    src: unicorn.j2
-    dest: "/etc/init.d/unicorn_{{ item }}"
+    src: unicorn.service.j2
+    dest: "/etc/systemd/system/unicorn-{{ item }}.service"
     owner: root
     group: root
     mode: 0755
 
-- name: update upstart to detect new unicorn config
+- name: update systemd to detect new unicorn configs
+  shell: "systemctl daemon-reload"
+  become: true
+
+- name: enable unicorn for systemd
   with_items: "{{ rails_apps }}"
-  shell: "update-rc.d unicorn_{{ item }} defaults"
+  shell: "systemctl enable unicorn-{{ item }}.service"
   become: true
 
 - name: create nginx vhost files for rails apps
