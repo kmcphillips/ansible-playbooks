@@ -65,6 +65,11 @@
   shell: "update-rc.d unicorn-{{ item }} defaults"
   become: true
 
+- name: restart unicorns
+  with_items: "{{ rails_apps }}"
+  become: true
+  shell: "/etc/init.d/unicorn-{{ item }} restart"
+
 - name: create nginx vhost files for rails apps
   with_items: "{{ rails_apps }}"
   copy:
