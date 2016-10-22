@@ -56,7 +56,7 @@ case $1 in
   restart|reload|upgrade)
     sig USR2 && sleep 5 && echo "reloaded $APP_NAME" && oldsig QUIT && echo "Killing old master" `cat $OLD_PID` && exit 0
     echo >&2 "Couldn't reload, starting '$CMD' instead"
-    $CMD
+    su - $USER -c "$CMD"
     ;;
   rotate)
     sig USR1 && echo rotated logs OK && exit 0
