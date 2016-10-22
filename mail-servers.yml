@@ -1,6 +1,6 @@
 ---
 - name: configure server for mail with Postfix
-  hosts:
+  hosts: mail1
   remote_user: root
   gather_facts: true
 
@@ -11,4 +11,4 @@
   roles:
     - common
     - zzet.rbenv
-    # TODO
+    - geerlingguy.postfix
