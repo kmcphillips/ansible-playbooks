@@ -1,0 +1,38 @@
+---
+- name: set mydestination hosts
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: ^mydestination.?=
+    line: "mydestination = $myhostname, mail1, localhost, localhost.localdomain, {{ mail_domains }}"
+
+- name: set myhostname hosts
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: ^myhostname.?=
+    line: "myhostname = mail.kev.cool"
+
+- name: set message_size_limit
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: ^message_size_limit.?=
+    line: "message_size_limit = 26214400"
+
+- name: set virtual_alias_maps
+  lineinfile:
+    dest: /etc/postfix/main.cf
+    regexp: ^virtual_alias_maps.?=
+    line: "virtual_alias_maps = hash:/etc/postfix/virtual"
+    state: present
+
+- name: create mail aliases
+  copy:
+    dest: /etc/postfix/virtual
+    content: "{{ vault_mail_aliases }}"
+    mode: 0644
+    owner: root
+
+- name: postmap virtual db
+  shell: "postmap /etc/postfix/virtual"
+  become: true
+  notify:
+    - restart postfix
