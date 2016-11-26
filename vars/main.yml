@@ -19,6 +19,7 @@ rails_app_root: /var/apps
 rails_app_user: deploy
 rails_apps:
   - kev.cool
+  - annie.codes
 
 mail_host_name: kev.cool
 mail_domains: kev.cool
