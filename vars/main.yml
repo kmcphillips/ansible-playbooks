@@ -14,6 +14,11 @@ mysql_databases: "{{ vault_mysql_databases }}"
 # skip-networking
 
 nginx_remove_default_vhost: true
+nginx_extra_http_options: |
+  server {
+      listen 80;
+      return 404;
+  }
 
 rails_app_root: /var/apps
 rails_app_user: deploy
