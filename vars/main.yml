@@ -29,4 +29,4 @@ rails_apps:
   - cliftonstudios.ca
 
 mail_host_name: kev.cool
-mail_domains: kev.cool
+mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes
