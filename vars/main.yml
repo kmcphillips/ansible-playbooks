@@ -26,6 +26,7 @@ rails_apps:
   - kev.cool
   - annie.codes
   - kevinmcphillips.ca
+  - cliftonstudios.ca
 
 mail_host_name: kev.cool
 mail_domains: kev.cool
