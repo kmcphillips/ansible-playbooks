@@ -9,7 +9,7 @@ Put the SSH public key into `/root/.ssh/authorized_keys`.
 Install Python 2 since Python 3 is not yet supported for ansible:
 
 ```
-apt-get install python2.7 python-simplejson
+aptitude install ansible python2.7 python-simplejson
 ```
 
 ## Playbook
