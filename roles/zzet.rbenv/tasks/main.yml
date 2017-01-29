@@ -56,7 +56,7 @@
       ! -group '{{ item }}'
       -exec chgrp -v '{{ item }}' {} + | head -n 1
   become: yes
-  with_items: '{{ rbenv_group }}'
+  with_items: '{{ rbenv_group | default([]) }}'
   when:
     - rbenv.env == "system"
     - rbenv_group is defined
