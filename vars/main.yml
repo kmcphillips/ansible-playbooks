@@ -27,6 +27,7 @@ rails_apps:
   - annie.codes
   - kevinmcphillips.ca
   - cliftonstudios.ca
+  - collectionget.ca
 
 mail_host_name: kev.cool
-mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes
+mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes, collectionget.ca
