@@ -31,5 +31,8 @@ rails_apps:
   - collectionget.ca
   - andrewlittleford.com
 
+static_sites:
+  - tentoomany.com
+
 mail_host_name: kev.cool
-mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes, collectionget.ca, andrewlittleford.com
+mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes, collectionget.ca, andrewlittleford.com, tentoomany.com
