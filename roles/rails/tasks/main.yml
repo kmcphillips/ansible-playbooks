@@ -9,36 +9,36 @@
     - libmagickwand-dev
     - libmysqlclient-dev
 
-- name: create root {{ rails_app_root }} directory
+- name: create root {{ app_root }} directory
   file:
-    path: "{{ rails_app_root }}"
+    path: "{{ app_root }}"
     state: directory
     mode: 0755
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
 
 - name: create app root directory
   with_items: "{{ rails_apps }}"
   file:
-    path: "{{ rails_app_root }}/{{ item }}"
+    path: "{{ app_root }}/{{ item }}"
     state: directory
     mode: 0755
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
 
-- name: create convenience symlink in home to {{ rails_app_root }} directory
+- name: create convenience symlink in home to {{ app_root }} directory
   file:
-    src: "{{ rails_app_root }}"
-    dest: "/home/{{ rails_app_user }}/apps"
-    owner: "{{ rails_app_user }}"
+    src: "{{ app_root }}"
+    dest: "/home/{{ app_user }}/apps"
+    owner: "{{ app_user }}"
     state: link
 
 - name: create app config directory
   with_items: "{{ rails_apps }}"
   file:
-    path: "{{ rails_app_root }}/{{ item }}/shared/config"
+    path: "{{ app_root }}/{{ item }}/shared/config"
     state: directory
     recurse: true
     mode: 0755
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
 
 - name: create files from vault
   with_subelements:
@@ -46,10 +46,10 @@
     - "yaml_files"
   no_log: true
   copy:
-    dest: "{{ rails_app_root }}/{{ item.0.name }}/shared/config/{{ item.1.filename }}"
+    dest: "{{ app_root }}/{{ item.0.name }}/shared/config/{{ item.1.filename }}"
     content: "{{ item.1.content | to_nice_yaml }}"
     mode: 0755
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
 
 - name: create unicorn init.d file
   with_items: "{{ rails_apps }}"
@@ -77,7 +77,7 @@
     src: "nginx/{{ item }}.conf"
     dest: "/etc/nginx/sites-available/{{ item }}.conf"
     mode: 0755
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
   notify:
     - reload nginx
 
@@ -86,7 +86,7 @@
   file:
     src: "/etc/nginx/sites-available/{{ item }}.conf"
     dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
-    owner: "{{ rails_app_user }}"
+    owner: "{{ app_user }}"
     state: link
   notify:
     - reload nginx

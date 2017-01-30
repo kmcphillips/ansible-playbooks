@@ -1,0 +1,28 @@
+---
+- name: create static site directory
+  with_items: "{{ static_sites }}"
+  file:
+    path: "{{ app_root }}/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ app_user }}"
+
+- name: create nginx vhost files for static sites
+  with_items: "{{ static_sites }}"
+  copy:
+    src: "nginx/{{ item }}.conf"
+    dest: "/etc/nginx/sites-available/{{ item }}.conf"
+    mode: 0755
+    owner: "{{ app_user }}"
+  notify:
+    - reload nginx
+
+- name: symlink enabled vhosts for nginx static sites
+  with_items: "{{ static_sites }}"
+  file:
+    src: "/etc/nginx/sites-available/{{ item }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+    owner: "{{ app_user }}"
+    state: link
+  notify:
+    - reload nginx

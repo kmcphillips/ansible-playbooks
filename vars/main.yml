@@ -20,8 +20,9 @@ nginx_extra_http_options: |
       return 404;
   }
 
-rails_app_root: /var/apps
-rails_app_user: deploy
+app_user: deploy
+app_root: /var/apps
+
 rails_apps:
   - kev.cool
   - annie.codes
