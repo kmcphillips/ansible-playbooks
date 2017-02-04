@@ -34,6 +34,7 @@ rails_apps:
 
 static_sites:
   - tentoomany.com
+  - brenthirose.com
 
 mail_host_name: kev.cool
-mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes, collectionget.ca, andrewlittleford.com, tentoomany.com, stoneboatpottery.ca
+mail_domains: kev.cool, kevinmcphillips.ca, cliftonstudios.ca, annie.codes, collectionget.ca, andrewlittleford.com, tentoomany.com, stoneboatpottery.ca, brenthirose.com
