@@ -51,6 +51,24 @@
     mode: 0755
     owner: "{{ app_user }}"
 
+- name: create app public directory
+  with_items: "{{ rails_apps }}"
+  file:
+    path: "{{ app_root }}/{{ item }}/shared/public"
+    state: directory
+    recurse: true
+    mode: 0755
+    owner: "{{ app_user }}"
+
+- name: create app .well-known directory
+  with_items: "{{ rails_apps }}"
+  file:
+    path: "{{ app_root }}/{{ item }}/shared/public/.well-known"
+    state: directory
+    recurse: true
+    mode: 0755
+    owner: "{{ app_user }}"
+
 - name: create unicorn init.d file
   with_items: "{{ rails_apps }}"
   template:
