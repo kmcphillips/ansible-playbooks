@@ -1,5 +1,5 @@
 ---
-- name: configure server to run rails/rack apps with Nginx and Unicorn
+- name: Configure server to run Nginx, MySQL, Ruby, and serve Rails/Rack apps with Unicorn over SSL
   hosts: rails-app1
   remote_user: root
   gather_facts: true
@@ -13,5 +13,6 @@
     - zzet.rbenv
     - geerlingguy.mysql
     - geerlingguy.nginx
+    - nginx_ssl
     - rails
     - static
