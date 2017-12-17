@@ -14,6 +14,7 @@
     - libffi-dev
     - libssl-dev
     - libyaml-dev
+    - fail2ban
 
 - name: create deploy user
   user:
