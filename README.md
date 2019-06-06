@@ -43,7 +43,7 @@ Further reading:
 
 ## Run the playbooks
 
-For app servers and mail servers:
+For app servers:
 
 ```
 ansible-playbook site.yml
@@ -53,5 +53,4 @@ Or just for a given server type:
 
 ```
 ansible-playbook app-servers.yml
-ansible-playbook mail-servers.yml
 ```
