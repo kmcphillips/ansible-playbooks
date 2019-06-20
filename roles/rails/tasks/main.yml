@@ -69,25 +69,25 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create unicorn init.d file
+- name: create systemd file for puma
   with_items: "{{ rails_apps }}"
   template:
-    src: unicorn.j2
-    dest: "/etc/init.d/unicorn-{{ item }}"
+    src: puma.j2
+    dest: "/etc/systemd/system/puma-{{ item }}.service"
     owner: root
     group: root
     mode: 0755
 
-- name: update rc.d to start unicorn apps with server
+- name: update systemd to recognize changed files
   with_items: "{{ rails_apps }}"
-  shell: "update-rc.d unicorn-{{ item }} defaults"
+  shell: "systemctl daemon-reload"
   become: true
 
-- name: restart unicorns
+- name: restart puma
   with_items: "{{ rails_apps }}"
   become: true
   ignore_errors: true
-  shell: "/etc/init.d/unicorn-{{ item }} restart"
+  shell: "service puma-{{ item }} restart"
 
 - name: create nginx vhost files for rails apps
   with_items: "{{ rails_apps }}"

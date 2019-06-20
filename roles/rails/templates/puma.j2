@@ -1,0 +1,18 @@
+[Unit]
+Description=Puma for {{ item }}
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+Environment=RAILS_ENV=production RBENV_ROOT=/home/deploy/.rbenv
+WorkingDirectory=/var/apps/{{ item }}/current
+ExecStart=/home/deploy/.rbenv/bin/rbenv exec bundle exec puma -C /var/apps/{{ item }}/shared/puma.rb
+ExecStop=/home/deploy/.rbenv/bin/rbenv exec bundle exec pumactl -S /var/apps/{{ item }}/shared/tmp/pids/puma.state -F /var/apps/{{ item }}/shared/puma.rb stop
+TimeoutSec=20
+Restart=always
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
