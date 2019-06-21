@@ -75,13 +75,10 @@
     group: root
     mode: 0755
 
-- name: "symlink systemd file for puma"
+- name: "enable systemd file for puma"
   with_items: "{{ rails_apps }}"
-  file:
-    src: "{{ app_root }}/{{ item }}/shared/puma-{{ item }}.service"
-    dest: "/etc/systemd/system/puma-{{ item }}.service"
-    owner: root
-    state: link
+  become: true
+  shell: "systemctl enable /var/apps/{{ item }}/shared/puma-{{ item }}.service"
 
 - name: "update systemd to recognize changed files"
   shell: "systemctl daemon-reload"
