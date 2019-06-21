@@ -70,10 +70,18 @@
   with_items: "{{ rails_apps }}"
   template:
     src: puma.j2
-    dest: "/etc/systemd/system/puma-{{ item }}.service"
-    owner: root
+    dest: "{{ app_root }}/{{ item }}/shared/puma-{{ item }}.service"
+    owner: "{{ app_user }}"
     group: root
     mode: 0755
+
+- name: "symlink systemd file for puma"
+  with_items: "{{ rails_apps }}"
+  file:
+    src: "{{ app_root }}/{{ item }}/shared/puma-{{ item }}.service"
+    dest: "/etc/systemd/system/puma-{{ item }}.service"
+    owner: root
+    state: link
 
 - name: "update systemd to recognize changed files"
   with_items: "{{ rails_apps }}"
