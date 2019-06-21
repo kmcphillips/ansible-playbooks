@@ -84,7 +84,6 @@
     state: link
 
 - name: "update systemd to recognize changed files"
-  with_items: "{{ rails_apps }}"
   shell: "systemctl daemon-reload"
   become: true
 
