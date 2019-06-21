@@ -1,22 +1,19 @@
----
-- name: install gem dependencies
+- name: "install gem dependencies"
   apt:
-    name: "{{ item }}"
+    pkg:
+      - imagemagick
+      - libmagickwand-dev
+      - libmysqlclient-dev
     state: present
-    update_cache: yes
-  with_items:
-    - imagemagick
-    - libmagickwand-dev
-    - libmysqlclient-dev
 
-- name: create root {{ app_root }} directory
+- name: "create root {{ app_root }} directory"
   file:
     path: "{{ app_root }}"
     state: directory
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create app root directory
+- name: "create app root directory"
   with_items: "{{ rails_apps }}"
   file:
     path: "{{ app_root }}/{{ item }}"
@@ -24,14 +21,14 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create convenience symlink in home to {{ app_root }} directory
+- name: "create convenience symlink in home to {{ app_root }} directory"
   file:
     src: "{{ app_root }}"
     dest: "/home/{{ app_user }}/apps"
     owner: "{{ app_user }}"
     state: link
 
-- name: create app config directory
+- name: "create app config directory"
   with_items: "{{ rails_apps }}"
   file:
     path: "{{ app_root }}/{{ item }}/shared/config"
@@ -40,7 +37,7 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create files from vault
+- name: "create files from vault"
   with_subelements:
     - "{{ vault_rails }}"
     - "yaml_files"
@@ -51,7 +48,7 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create app public directory
+- name: "create app public directory"
   with_items: "{{ rails_apps }}"
   file:
     path: "{{ app_root }}/{{ item }}/shared/public"
@@ -60,7 +57,7 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create app .well-known directory
+- name: "create app .well-known directory"
   with_items: "{{ rails_apps }}"
   file:
     path: "{{ app_root }}/{{ item }}/shared/public/.well-known"
@@ -69,7 +66,7 @@
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: create systemd file for puma
+- name: "create systemd file for puma"
   with_items: "{{ rails_apps }}"
   template:
     src: puma.j2
@@ -78,18 +75,20 @@
     group: root
     mode: 0755
 
-- name: update systemd to recognize changed files
+- name: "update systemd to recognize changed files"
   with_items: "{{ rails_apps }}"
   shell: "systemctl daemon-reload"
   become: true
 
-- name: restart puma
+- name: "restart puma"
   with_items: "{{ rails_apps }}"
   become: true
   ignore_errors: true
+  args:
+    warn: false
   shell: "service puma-{{ item }} restart"
 
-- name: create nginx vhost files for rails apps
+- name: "create nginx vhost files for rails apps"
   with_items: "{{ rails_apps }}"
   copy:
     src: "nginx/{{ item }}.conf"
@@ -99,7 +98,7 @@
   notify:
     - reload nginx
 
-- name: symlink enabled vhosts for nginx rails apps
+- name: "symlink enabled vhosts for nginx rails apps"
   with_items: "{{ rails_apps }}"
   file:
     src: "/etc/nginx/sites-available/{{ item }}.conf"

@@ -1,5 +1,5 @@
 ---
-- name: Configure server to run Nginx, MySQL, Redis, Ruby, and serve Rails/Rack apps with Unicorn over SSL
+- name: Configure server to run Nginx, MySQL, Redis, Ruby, and serve Rails/Rack apps with Puma over SSL
   hosts: rails-app1
   remote_user: root
   gather_facts: true
