@@ -181,7 +181,7 @@
   register: ruby_installed
   changed_when: false
   ignore_errors: yes
-  always_run: yes
+  check_mode: no
   when: rbenv.env == "system"
   tags:
     - rbenv
@@ -200,7 +200,7 @@
   register: ruby_selected
   changed_when: false
   ignore_errors: yes
-  always_run: yes
+  check_mode: no
   when: rbenv.env == "system"
   tags:
     - rbenv
@@ -223,7 +223,7 @@
   register: ruby_installed
   changed_when: false
   ignore_errors: yes
-  always_run: yes
+  check_mode: no
   tags:
     - rbenv
 
@@ -250,7 +250,7 @@
   register: ruby_selected
   changed_when: false
   ignore_errors: yes
-  always_run: yes
+  check_mode: no
   tags:
     - rbenv
 
