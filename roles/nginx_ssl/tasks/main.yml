@@ -1,20 +1,19 @@
 ---
-- name: install letsencrypt with apt
+- name: "install letsencrypt with apt"
   apt:
-    name: "{{ item }}"
     state: present
     update_cache: yes
-  with_items:
-    - letsencrypt
+    pkg:
+      - letsencrypt
 
-- name: create ssl-params.conf snippet
+- name: "create ssl-params.conf snippet"
   copy:
     src: "ssl-params.conf"
     dest: /etc/nginx/snippets/
     mode: 0755
     owner: "{{ app_user }}"
 
-- name: cron entry to renew letsencrypt SSL certs
+- name: "cron entry to renew letsencrypt SSL certs"
   become: true
   cron:
     name: "renew letsencrypt"
@@ -22,7 +21,7 @@
     hour: "2,14"
     job: "/usr/bin/letsencrypt renew >> /var/log/letsencrypt-renew.log"
 
-- name: cron entry to renew reload nginx after renewal
+- name: "cron entry to renew reload nginx after renewal"
   become: true
   cron:
     name: "reload nginx"
