@@ -10,6 +10,7 @@
 
   roles:
     - common
+    - andrewsomething.do-agent
     - zzet.rbenv
     - geerlingguy.mysql
     - geerlingguy.redis
