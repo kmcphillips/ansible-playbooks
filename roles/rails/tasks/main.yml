@@ -73,12 +73,24 @@
     dest: "{{ app_root }}/{{ item }}/shared/puma-{{ item }}.service"
     owner: "{{ app_user }}"
     group: root
-    mode: 0755
+    mode: 0644
 
 - name: "enable systemd file for puma"
   with_items: "{{ rails_apps }}"
   become: true
   shell: "systemctl enable /var/apps/{{ item }}/shared/puma-{{ item }}.service"
+
+- name: "add individual sidekiq systemd file"
+  become: true
+  copy:
+    src: "systemd/sidekiq-mandate.kev.cool.service"
+    dest: "/var/apps/mandate.kev.cool/shared/sidekiq-mandate.kev.cool.service"
+    mode: 0644
+    owner: "{{ app_user }}"
+
+- name: "enable individual systemd file for sidekiq"
+  become: true
+  shell: "systemctl enable /var/apps/mandate.kev.cool/shared/sidekiq-mandate.kev.cool.service"
 
 - name: "update systemd to recognize changed files"
   shell: "systemctl daemon-reload"
@@ -97,7 +109,7 @@
   copy:
     src: "nginx/{{ item }}.conf"
     dest: "/etc/nginx/sites-available/{{ item }}.conf"
-    mode: 0755
+    mode: 0644
     owner: "{{ app_user }}"
   notify:
     - reload nginx
