@@ -12,6 +12,7 @@ ExecStop=/home/deploy/.rbenv/bin/rbenv exec bundle exec pumactl -S /var/apps/{{ 
 TimeoutSec=20
 Restart=always
 KillMode=process
+SyslogIdentifier=puma
 
 [Install]
 WantedBy=multi-user.target
