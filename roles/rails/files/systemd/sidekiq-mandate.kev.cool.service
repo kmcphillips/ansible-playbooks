@@ -7,7 +7,7 @@ Type=simple
 User=deploy
 Environment=RAILS_ENV=production RBENV_ROOT=/home/deploy/.rbenv
 WorkingDirectory=/var/apps/mandate.kev.cool/current
-ExecStart=/home/deploy/.rbenv/bin/rbenv exec bundle exec sidekiq --index 0 --environment production -q mandate_industries_default -q mandate_industries_mailers
+ExecStart=/home/deploy/.rbenv/bin/rbenv exec bundle exec sidekiq --index 0 --environment production -q mandate_industries_default -q mandate_industries_mailers -q mandate_industries_active_storage_analysis
 ExecReload=/bin/kill -TSTP $MAINPID
 ExecStop=/bin/kill -TERM $MAINPID
 TimeoutSec=20
