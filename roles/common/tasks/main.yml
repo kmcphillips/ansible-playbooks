@@ -42,3 +42,39 @@
     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
     user: deploy
     state: present
+
+- name: "UFW incoming deny"
+  ufw:
+    direction: incoming
+    policy: deny
+
+- name: "UFW outgoing allow"
+  ufw:
+    direction: outgoing
+    policy: allow
+
+- name: "UFW allow port 22"
+  ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+
+- name: "UFW allow port 80"
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+- name: "UFW allow port 443"
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+
+- name: "UFW logging"
+  ufw:
+    logging: on
+
+- name: "Enable UFW"
+  ufw:
+    state: enabled
