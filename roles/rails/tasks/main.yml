@@ -80,7 +80,7 @@
   become: true
   shell: "systemctl enable /var/apps/{{ item }}/shared/puma-{{ item }}.service"
 
-- name: "add individual sidekiq systemd file"
+- name: "add mandate.kev.cool sidekiq systemd file"
   become: true
   copy:
     src: "systemd/sidekiq-mandate.kev.cool.service"
@@ -88,9 +88,21 @@
     mode: 0644
     owner: "{{ app_user }}"
 
-- name: "enable individual systemd file for sidekiq"
+- name: "enable mandate.kev.cool systemd file for sidekiq"
   become: true
   shell: "systemctl enable /var/apps/mandate.kev.cool/shared/sidekiq-mandate.kev.cool.service"
+
+- name: "add quigital.com sidekiq systemd file"
+  become: true
+  copy:
+    src: "systemd/sidekiq-quigital.com.service"
+    dest: "/var/apps/quigital.com/shared/sidekiq-quigital.com.service"
+    mode: 0644
+    owner: "{{ app_user }}"
+
+- name: "enable quigital.com systemd file for sidekiq"
+  become: true
+  shell: "systemctl enable /var/apps/quigital.com/shared/sidekiq-quigital.com.service"
 
 - name: "update systemd to recognize changed files"
   shell: "systemctl daemon-reload"

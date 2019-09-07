@@ -1,0 +1,19 @@
+[Unit]
+Description=Sidekiq for quigital.com
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+Environment=RAILS_ENV=production RBENV_ROOT=/home/deploy/.rbenv
+WorkingDirectory=/var/apps/quigital.com/current
+ExecStart=/home/deploy/.rbenv/bin/rbenv exec bundle exec sidekiq --index 0 --environment production -q quigital_default -q quigital_mailers -q quigital_active_storage_analysis
+ExecReload=/bin/kill -TSTP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+TimeoutSec=20
+Restart=always
+KillMode=process
+SyslogIdentifier=sidekiq
+
+[Install]
+WantedBy=multi-user.target
