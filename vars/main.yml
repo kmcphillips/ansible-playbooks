@@ -34,6 +34,7 @@ rails_apps:
   - buzzer.management
   - mandate.kev.cool
   - quigital.com
+  # - infohub.quigital.com
 
 static_sites:
   - tentoomany.com
