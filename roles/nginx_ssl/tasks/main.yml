@@ -1,10 +1,11 @@
 ---
-- name: "install letsencrypt with apt"
+- name: "install letsencrypt certbot with apt"
   apt:
     state: present
     update_cache: yes
     pkg:
-      - letsencrypt
+      - certbot
+      - python-certbot-nginx
 
 - name: "create ssl-params.conf snippet"
   copy:
@@ -12,14 +13,6 @@
     dest: /etc/nginx/snippets/
     mode: 0755
     owner: "{{ app_user }}"
-
-- name: "cron entry to renew letsencrypt SSL certs"
-  become: true
-  cron:
-    name: "renew letsencrypt"
-    minute: "12"
-    hour: "2,14"
-    job: "/usr/bin/letsencrypt renew >> /var/log/letsencrypt-renew.log"
 
 - name: "cron entry to renew reload nginx after renewal"
   become: true

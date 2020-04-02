@@ -30,15 +30,13 @@ Install or create the keys and certs for domains in:
 
 Creating a new cert for a domain is as easy as making sure the `public/.well-known` is symlinked and then running:
 ```
-sudo letsencrypt certonly -a webroot --webroot-path=/var/apps/example.com/shared/public -d example.com -d www.example.com
+sudo certbot certonly -a webroot --webroot-path=/var/apps/example.com/shared/public -d example.com -d www.example.com
 ```
 
-Further reading:
 
-* https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
-* https://certbot.eff.org/#ubuntuxenial-nginx
-* https://community.letsencrypt.org/t/nginx-configuration-sample/2173
-* https://mozilla.github.io/server-side-tls/ssl-config-generator/
+Further reading:
+* https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
+* https://github.com/certbot/certbot/issues/6221#issuecomment-455641244
 
 
 ## Run the playbooks
