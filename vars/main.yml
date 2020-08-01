@@ -33,11 +33,9 @@ rails_apps:
   - andrewlittleford.com
   - buzzer.management
   - mandate.kev.cool
-  - quigital.com
-  # - infohub.quigital.com
 
 static_sites:
   - tentoomany.com
-  - brenthirose.com
   - ebritton.com
   - tunnel.kev.cool
+  - recipes.mcphilli.ps
