@@ -33,6 +33,7 @@ rails_apps:
   - andrewlittleford.com
   - buzzer.management
   - mandate.kev.cool
+  - baby_tracker
 
 static_sites:
   - tentoomany.com

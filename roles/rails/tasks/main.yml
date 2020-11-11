@@ -92,22 +92,6 @@
   become: true
   shell: "systemctl enable /var/apps/mandate.kev.cool/shared/sidekiq-mandate.kev.cool.service"
 
-- name: "add quigital.com sidekiq systemd file"
-  become: true
-  copy:
-    src: "systemd/sidekiq-quigital.com.service"
-    dest: "/var/apps/quigital.com/shared/sidekiq-quigital.com.service"
-    mode: 0644
-    owner: "{{ app_user }}"
-
-- name: "enable quigital.com systemd file for sidekiq"
-  become: true
-  shell: "systemctl enable /var/apps/quigital.com/shared/sidekiq-quigital.com.service"
-
-- name: "update systemd to recognize changed files"
-  shell: "systemctl daemon-reload"
-  become: true
-
 - name: "restart puma"
   with_items: "{{ rails_apps }}"
   become: true
