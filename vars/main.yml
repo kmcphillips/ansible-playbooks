@@ -33,10 +33,10 @@ rails_apps:
   - andrewlittleford.com
   - buzzer.management
   - mandate.kev.cool
-  - baby_tracker
 
 static_sites:
   - tentoomany.com
   - ebritton.com
   - tunnel.kev.cool
   - recipes.mcphilli.ps
+  - mandate.industries

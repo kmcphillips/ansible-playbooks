@@ -10,11 +10,11 @@
 
   roles:
     - common
-    - andrewsomething.do-agent
-    - zzet.rbenv
-    - geerlingguy.mysql
-    - geerlingguy.redis
-    - geerlingguy.nginx
-    - nginx_ssl
-    - rails
+    # - andrewsomething.do-agent
+    # - zzet.rbenv
+    # - geerlingguy.mysql
+    # - geerlingguy.redis
+    # - geerlingguy.nginx
+    # - nginx_ssl
+    # - rails
     - static
